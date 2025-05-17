@@ -1,3 +1,13 @@
-# Python Datadis
+# Python Datadis API Client
 
-A python package to interact with the [Datadis API](https://datadis.es/private-api).
+A Python client library to interact with the [Datadis API](https://datadis.es/private-api).
+
+## Installation
+
+```bash
+pip install datadis-client
+```
+
+## License
+
+This project is licensed under the MIT License.

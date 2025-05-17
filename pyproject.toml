@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=80.7"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "datadis-client"
+version = "0.0.1"
+authors = [{ name = "agaliste", email = "me@agaliste.dev" }]
+description = "A Python client for the Datadis API."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/agaliste/python-datadis"
+"Bug Tracker" = "https://github.com/agaliste/python-datadis/issues"
