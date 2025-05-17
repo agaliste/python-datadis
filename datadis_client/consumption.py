@@ -2,7 +2,7 @@
 Consumption data API endpoints for the Datadis client.
 """
 
-from typing import Dict, Any, Optional, List, Union
+from typing import Dict, Any, Optional
 
 
 class ConsumptionMixin:
@@ -20,7 +20,7 @@ class ConsumptionMixin:
     ) -> Dict[str, Any]:
         """
         Get consumption data for a specific CUPS.
-        
+
         Args:
             cups: The CUPS for which to retrieve consumption data.
             distributor_code: Code of distributor, obtained from get_supplies request.
@@ -29,7 +29,7 @@ class ConsumptionMixin:
             measurement_type: "0" for hourly data, "1" for quarter-hourly data.
             point_type: Point type code, obtained from get_supplies request.
             authorized_nif: Optional authorized NIF to get data for.
-            
+
         Returns:
             Dict[str, Any]: The consumption data.
         """
@@ -41,12 +41,12 @@ class ConsumptionMixin:
             "measurementType": measurement_type,
             "pointType": point_type
         }
-        
+
         if authorized_nif:
             params["authorizedNif"] = authorized_nif
-            
+
         return self._get("/api-private/api/get-consumption-data-v2", params)
-        
+
     def get_max_power(
         self,
         cups: str,
@@ -57,14 +57,14 @@ class ConsumptionMixin:
     ) -> Dict[str, Any]:
         """
         Get maximum power data for a specific CUPS.
-        
+
         Args:
             cups: The CUPS for which to retrieve max power data.
             distributor_code: Code of distributor, obtained from get_supplies request.
             start_date: Start date in format YYYY/MM.
             end_date: End date in format YYYY/MM.
             authorized_nif: Optional authorized NIF to get data for.
-            
+
         Returns:
             Dict[str, Any]: The maximum power data.
         """
@@ -74,10 +74,10 @@ class ConsumptionMixin:
             "startDate": start_date,
             "endDate": end_date
         }
-        
+
         if authorized_nif:
             params["authorizedNif"] = authorized_nif
-            
+
         return self._get("/api-private/api/get-max-power-v2", params)
 
     def get_reactive_data(
@@ -90,14 +90,14 @@ class ConsumptionMixin:
     ) -> Dict[str, Any]:
         """
         Get reactive energy data for a specific CUPS.
-        
+
         Args:
             cups: The CUPS for which to retrieve reactive data.
             distributor_code: Code of distributor, obtained from get_supplies request.
             start_date: Start date in format YYYY/MM.
             end_date: End date in format YYYY/MM.
             authorized_nif: Optional authorized NIF to get data for.
-            
+
         Returns:
             Dict[str, Any]: The reactive energy data.
         """
@@ -107,8 +107,8 @@ class ConsumptionMixin:
             "startDate": start_date,
             "endDate": end_date
         }
-        
+
         if authorized_nif:
             params["authorizedNif"] = authorized_nif
-            
-        return self._get("/api-private/api/get-reactive-data-v2", params) 
+
+        return self._get("/api-private/api/get-reactive-data-v2", params)
