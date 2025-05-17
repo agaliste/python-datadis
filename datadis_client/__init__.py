@@ -114,4 +114,4 @@ def create_client(username: str, password: str) -> DatadisClient:
 
 
 # Export for easier imports
-__all__ = ["DatadisClient", "create_client"] 
+__all__ = ["DatadisClient", "create_client"]
