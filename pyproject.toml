@@ -3,7 +3,7 @@ requires = ["setuptools>=80.7"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "datadis-client"
+name = "python-datadis"
 version = "0.0.1"
 authors = [{ name = "agaliste", email = "me@agaliste.dev" }]
 description = "A Python client for the Datadis API."
