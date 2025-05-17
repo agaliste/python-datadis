@@ -85,6 +85,74 @@ The client provides access to all Datadis API endpoints:
 
 Check the `examples` directory for complete usage examples.
 
+## Development
+
+### Setting up a development environment
+
+Clone the repository and install development dependencies:
+
+```bash
+git clone https://github.com/agaliste/python-datadis.git
+cd python-datadis
+pip install -e ".[dev]"
+```
+
+### Running tests
+
+Run the unit tests with pytest:
+
+```bash
+pytest tests/test_auth.py tests/test_consumption.py tests/test_supplies.py tests/test_search.py
+```
+
+Run tests with coverage:
+
+```bash
+pytest --cov=datadis_client
+```
+
+Generate coverage reports:
+
+```bash
+pytest --cov=datadis_client --cov-report=html
+```
+
+### Running integration tests
+
+Integration tests make actual API calls to Datadis and **require** valid credentials. These tests verify that the client works correctly with the real Datadis API.
+
+1. Create a `.env` file in the project root with your Datadis credentials:
+
+   ```
+   # Datadis API credentials (required)
+   DATADIS_USERNAME=your_nif_here
+   DATADIS_PASSWORD=your_password_here
+
+   # Test data (optional)
+   # If not provided, tests will auto-discover a CUPS from your account
+   TEST_CUPS=ES0021000000000000XXXX
+   TEST_DISTRIBUTOR_CODE=0000
+   TEST_POINT_TYPE=5
+   ```
+
+2. Run the integration tests using the provided scripts:
+
+   ```bash
+   # Unix/macOS
+   ./run_tests.sh
+
+   # Windows
+   run_tests.bat
+   ```
+
+   Or run them directly:
+
+   ```bash
+   pytest tests/test_integration.py -v
+   ```
+
+   If you don't provide specific TEST_CUPS values, the integration tests will automatically use the first CUPS found in your account.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
