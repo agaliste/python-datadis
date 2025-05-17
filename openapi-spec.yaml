@@ -1,0 +1,2290 @@
+openapi: 3.0.0
+info:
+  title: Datadis
+  version: 1.0.0
+  description: ""
+servers:
+  - url: datadis.es
+paths:
+  /nikola-auth/tokens/login:
+    parameters: []
+    post:
+      summary: Get Token
+      parameters:
+        - name: username
+          in: query
+          required: true
+          description: NIF of the user registered in Datadis.
+          example: "{{USERNAME}}"
+          schema:
+            type: string
+            minLength: 0
+            maxLength: 0
+        - name: password
+          in: query
+          required: true
+          description: User's Datadis access password.
+          example: "{{PASSWORD}}"
+          schema:
+            type: string
+            minLength: 0
+            maxLength: 0
+      responses: {}
+  /api-public/api-search:
+    parameters: []
+    get:
+      summary: Api Search
+      parameters:
+        - name: startDate
+          in: query
+          required: true
+          description: >-
+            Start date beetween search data. Format: YYYY/MM/dd. Example =
+            2020/02/28.
+          schema:
+            deprecated: false
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          required: true
+          description: >-
+            End date beetween search data. Format: YYYY/MM/dd. Example =
+            2020/02/28.
+          schema:
+            deprecated: false
+            type: string
+            format: date-time
+        - name: page
+          in: query
+          required: true
+          description: The number of page that you want to see. The first page is 0.
+          schema:
+            deprecated: false
+            type: integer
+            minimum: 0
+        - name: pageSize
+          in: query
+          required: true
+          description: >-
+            With this param you can set the number of results for page. The max
+            value is 2000.
+          schema:
+            deprecated: false
+            type: integer
+            minimum: 0
+            maximum: 2000
+        - name: measurementType
+          in: query
+          required: true
+          description: >-
+            You can call by hired measure point type. The API responds with a
+            list of results that match a selected measure point type for the
+            query value, select the measure point type name. You can check more
+            than one measure point type. Example: 02.
+
+
+            01
+
+
+            Punto de medida tipo  1
+
+
+            02
+
+
+            Punto de medida tipo  2
+
+
+            03
+
+
+            Punto de medida tipo  3
+
+
+            04
+
+
+            Punto de medida tipo  4
+
+
+            05
+
+
+            Punto de medida tipo  5
+          schema:
+            deprecated: false
+            type: string
+            enum:
+              - "01"
+              - "02"
+              - "03"
+              - "04"
+              - "05"
+        - name: community
+          in: query
+          required: true
+          description: >-
+            You can call by community name. This parameter is mandatory and the
+            maximun that you can select is two. The API responds with a list of
+            results that match a selected word. For the query value, select the
+            Community name. You can check more than one community. Example: 01.
+
+
+            01 
+
+
+            Andalucía
+
+
+            02 
+
+
+            Aragón
+
+
+            03 
+
+
+            Principado de Asturias
+
+
+            04 
+
+
+            Islas Baleares
+
+
+            05 
+
+
+            Canarias
+
+
+            06 
+
+
+            Cantabria
+
+
+            07 
+
+
+            Castilla y León
+
+
+            08 
+
+
+            Castilla La Mancha
+
+
+            09 
+
+
+            Cataluña
+
+
+            10 
+
+
+            Comunidad Valenciana
+
+
+            11 
+
+
+            Extremadura
+
+
+            12 
+
+
+            Galicia
+
+
+            13 
+
+
+            Comunidad de Madrid
+
+
+            14 
+
+
+            Región de Murcia
+
+
+            15 
+
+
+            Comunidad Foral de Navarra
+
+
+            16 
+
+
+            País Vasco
+
+
+            17 
+
+
+            La Rioja
+
+
+            18 
+
+
+            Ceuta
+
+
+            19 
+
+
+            Melilla
+          schema:
+            deprecated: false
+            type: string
+        - name: distributor
+          in: query
+          required: false
+          description: >-
+            You can call by distributor. You can see all distributors here. It
+            will use the distributor code XXXX digit. Example: of the
+            distributor ADURIZ DISTRIBUCIÓN, S.L. = 0172. You can combine more
+            than one distributor using ', '. Example = 0172,0426.
+          schema:
+            deprecated: false
+            type: string
+        - name: fare
+          in: query
+          required: false
+          description: >-
+            You can call by hired fare. The API responds with a list of results
+            that match a selected fare for the query value, select the fare
+            name. You can check more than one fare. Example: 31.
+
+
+            30 
+
+
+            GENERAL LOW VOLTAGE
+
+
+            31 
+
+
+            THREE-PERIOD 1 TO 36 kV
+
+
+            3T 
+
+
+            GENERAL LOW VOLTAGE, POWER GREATER THAN 15 kW
+
+
+            3V 
+
+
+            GENERAL LOW VOLTAGE, POWER OVER 15 kW FOR ELECTRIC VEHICLE
+
+
+            62 
+
+
+            >= 30 kV Y < 72.5 kV 
+
+
+            63 
+
+
+            >= 72.5 kV Y < 145 kV
+
+
+            64 
+
+
+            >= 145 kV
+
+
+            65 
+
+
+            INTERNATIONAL CONNECTIONS
+
+
+            21 
+
+
+            GENERAL LOW VOLTAGE, POWER GREATER THAN 10 kW AND NOT GREATER THAN
+            15 kW
+
+
+            2A 
+
+
+            GENERAL LOW VOLTAGE, POWER NOT GREATER THAN 10 kW
+
+
+            2T 
+
+
+            GENERAL LOW VOLTAGE, POWER LESS THAN 15 kW
+
+
+            6A 
+
+
+            >= 1 kV Y < 30 kV
+
+
+            6V 
+
+
+            6.1A ELECTRIC VEHICLE FARE
+          schema:
+            deprecated: false
+            type: string
+        - name: provinceMunicipality
+          in: query
+          required: false
+          description: >-
+            You can call by province and municipality. 
+
+            You can see all the provinces here. You will use 2 codes: province
+            code = XX digit and municipality code = XXX digit. 
+
+            Example: from the Torrevieja municipality = 03133, if you only enter
+            the first 2 digits you will search by province. 
+
+            Example: Alicante = 03. You can combine more than one municipality
+            or province using ','. 
+
+            Example: 03133,03132 or 03,04.
+          schema:
+            deprecated: false
+            type: string
+        - name: postalCode
+          in: query
+          required: false
+          description: >-
+            You can call by postal code. Example: 18817. You can combine more
+            than one postal code using ','. Example: 18817,18800.
+          schema:
+            deprecated: false
+            type: string
+        - name: economicSector
+          in: query
+          required: false
+          description: >-
+            You can call by economic sector . The API responds with a list of
+            results that match a selected economic sector for the query value,
+            select the economic sector name. You can check more than one
+            economic sector. Example: 1.
+
+
+            1
+
+
+            Residential
+
+
+            2
+
+
+            Industrial
+
+
+            3
+
+
+            Services
+
+
+            4
+
+
+            Not specified
+          schema:
+            deprecated: false
+            type: string
+        - name: tension
+          in: query
+          required: false
+          description: >-
+            You can call by tension electric. The API responds with a list of
+            results that match a selected tension electric for the query value,
+            select the tension electric. You can check more than one tension
+            electric. Example: E0.
+
+
+            E0
+
+
+            Low voltageón
+
+
+            E1
+
+
+            >= 1 kV y < 14 kV
+
+
+            E2
+
+
+            >= 14 kV y < 36 kV
+
+
+            E3
+
+
+            >= 36 kV y < 72.5 kV
+
+
+            E4
+
+
+            >= 72.5 kV y < 145 kV
+
+
+            E5
+
+
+            >= 145 kV y < 220 kV
+
+
+            E6
+
+
+            >= 220 kV
+          schema:
+            deprecated: false
+            type: string
+        - name: timeDiscrimination
+          in: query
+          required: false
+          description: >-
+            You can call by time discrimination. The API responds with a list of
+            results that match a selected time driscrimination for the query
+            value, select the time discrimination. You can check more than one
+            time discrimination. Example: G0. 
+
+
+            G0 
+
+
+            HIGH VOLTAGE GENERAL
+
+
+            E3 
+
+
+            THREE PERIOD RATE
+
+
+            E2 
+
+
+            TWO PERIOD RATE
+
+
+            E1 
+
+
+            RATE FOR A PERIOD
+          schema:
+            deprecated: false
+            type: string
+        - name: sort
+          in: query
+          required: false
+          description: >-
+            With this param you can order your results. For reverse order you
+            must add a '-' simbol before the field. Example: _sort=dataDate. You
+            can combine more than one sort using ','. You can order by:
+            dataDate, community, province, municipality, postalCode, fare,
+            measurePointType, tension, economicSector, timeDiscrimination,
+            distributor, sumEnergy and sumContracts. You only can sort by
+            previously used filters.
+          schema:
+            deprecated: false
+            type: string
+      responses: {}
+  /api-public/api-sum-search:
+    parameters: []
+    get:
+      summary: Sum Search
+      parameters:
+        - name: startDate
+          in: query
+          required: true
+          description: >-
+            Start date beetween search data. Format: YYYY/MM/dd. Example =
+            2020/02/28.
+          schema:
+            deprecated: false
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          required: true
+          description: >-
+            End date beetween search data. Format: YYYY/MM/dd. Example =
+            2020/02/28.
+          schema:
+            deprecated: false
+            type: string
+            format: date-time
+        - name: page
+          in: query
+          required: true
+          description: The number of page that you want to see. The first page is 0.
+          schema:
+            deprecated: false
+            type: integer
+            minimum: 0
+        - name: pageSize
+          in: query
+          required: true
+          description: >-
+            With this param you can set the number of results for page. The max
+            value is 2000.
+          schema:
+            deprecated: false
+            type: integer
+            minimum: 0
+            maximum: 2000
+        - name: measurementType
+          in: query
+          required: true
+          description: >-
+            You can call by hired measure point type. The API responds with a
+            list of results that match a selected measure point type for the
+            query value, select the measure point type name. You can check more
+            than one measure point type. Example: 02.
+
+
+            01
+
+
+            Punto de medida tipo  1
+
+
+            02
+
+
+            Punto de medida tipo  2
+
+
+            03
+
+
+            Punto de medida tipo  3
+
+
+            04
+
+
+            Punto de medida tipo  4
+
+
+            05
+
+
+            Punto de medida tipo  5
+          schema:
+            deprecated: false
+            type: string
+            enum:
+              - "01"
+              - "02"
+              - "03"
+              - "04"
+              - "05"
+        - name: community
+          in: query
+          required: true
+          description: >-
+            You can call by community name. This parameter is mandatory and the
+            maximun that you can select is two. The API responds with a list of
+            results that match a selected word. For the query value, select the
+            Community name. You can check more than one community. Example: 01.
+
+
+            01 
+
+
+            Andalucía
+
+
+            02 
+
+
+            Aragón
+
+
+            03 
+
+
+            Principado de Asturias
+
+
+            04 
+
+
+            Islas Baleares
+
+
+            05 
+
+
+            Canarias
+
+
+            06 
+
+
+            Cantabria
+
+
+            07 
+
+
+            Castilla y León
+
+
+            08 
+
+
+            Castilla La Mancha
+
+
+            09 
+
+
+            Cataluña
+
+
+            10 
+
+
+            Comunidad Valenciana
+
+
+            11 
+
+
+            Extremadura
+
+
+            12 
+
+
+            Galicia
+
+
+            13 
+
+
+            Comunidad de Madrid
+
+
+            14 
+
+
+            Región de Murcia
+
+
+            15 
+
+
+            Comunidad Foral de Navarra
+
+
+            16 
+
+
+            País Vasco
+
+
+            17 
+
+
+            La Rioja
+
+
+            18 
+
+
+            Ceuta
+
+
+            19 
+
+
+            Melilla
+          schema:
+            deprecated: false
+            type: string
+        - name: distributor
+          in: query
+          required: false
+          description: >-
+            You can call by distributor. You can see all distributors here. It
+            will use the distributor code XXXX digit. Example: of the
+            distributor ADURIZ DISTRIBUCIÓN, S.L. = 0172. You can combine more
+            than one distributor using ', '. Example = 0172,0426.
+          schema:
+            deprecated: false
+            type: string
+        - name: fare
+          in: query
+          required: false
+          description: >-
+            You can call by hired fare. The API responds with a list of results
+            that match a selected fare for the query value, select the fare
+            name. You can check more than one fare. Example: 31.
+
+
+            30 
+
+
+            GENERAL LOW VOLTAGE
+
+
+            31 
+
+
+            THREE-PERIOD 1 TO 36 kV
+
+
+            3T 
+
+
+            GENERAL LOW VOLTAGE, POWER GREATER THAN 15 kW
+
+
+            3V 
+
+
+            GENERAL LOW VOLTAGE, POWER OVER 15 kW FOR ELECTRIC VEHICLE
+
+
+            62 
+
+
+            >= 30 kV Y < 72.5 kV 
+
+
+            63 
+
+
+            >= 72.5 kV Y < 145 kV
+
+
+            64 
+
+
+            >= 145 kV
+
+
+            65 
+
+
+            INTERNATIONAL CONNECTIONS
+
+
+            21 
+
+
+            GENERAL LOW VOLTAGE, POWER GREATER THAN 10 kW AND NOT GREATER THAN
+            15 kW
+
+
+            2A 
+
+
+            GENERAL LOW VOLTAGE, POWER NOT GREATER THAN 10 kW
+
+
+            2T 
+
+
+            GENERAL LOW VOLTAGE, POWER LESS THAN 15 kW
+
+
+            6A 
+
+
+            >= 1 kV Y < 30 kV
+
+
+            6V 
+
+
+            6.1A ELECTRIC VEHICLE FARE
+          schema:
+            deprecated: false
+            type: string
+        - name: provinceMunicipality
+          in: query
+          required: false
+          description: >-
+            You can call by province and municipality. 
+
+            You can see all the provinces here. You will use 2 codes: province
+            code = XX digit and municipality code = XXX digit. 
+
+            Example: from the Torrevieja municipality = 03133, if you only enter
+            the first 2 digits you will search by province. 
+
+            Example: Alicante = 03. You can combine more than one municipality
+            or province using ','. 
+
+            Example: 03133,03132 or 03,04.
+          schema:
+            deprecated: false
+            type: string
+        - name: postalCode
+          in: query
+          required: false
+          description: >-
+            You can call by postal code. Example: 18817. You can combine more
+            than one postal code using ','. Example: 18817,18800.
+          schema:
+            deprecated: false
+            type: string
+        - name: economicSector
+          in: query
+          required: false
+          description: >-
+            You can call by economic sector . The API responds with a list of
+            results that match a selected economic sector for the query value,
+            select the economic sector name. You can check more than one
+            economic sector. Example: 1.
+
+
+            1
+
+
+            Residential
+
+
+            2
+
+
+            Industrial
+
+
+            3
+
+
+            Services
+
+
+            4
+
+
+            Not specified
+          schema:
+            deprecated: false
+            type: string
+        - name: tension
+          in: query
+          required: false
+          description: >-
+            You can call by tension electric. The API responds with a list of
+            results that match a selected tension electric for the query value,
+            select the tension electric. You can check more than one tension
+            electric. Example: E0.
+
+
+            E0
+
+
+            Low voltageón
+
+
+            E1
+
+
+            >= 1 kV y < 14 kV
+
+
+            E2
+
+
+            >= 14 kV y < 36 kV
+
+
+            E3
+
+
+            >= 36 kV y < 72.5 kV
+
+
+            E4
+
+
+            >= 72.5 kV y < 145 kV
+
+
+            E5
+
+
+            >= 145 kV y < 220 kV
+
+
+            E6
+
+
+            >= 220 kV
+          schema:
+            deprecated: false
+            type: string
+        - name: timeDiscrimination
+          in: query
+          required: false
+          description: >-
+            You can call by time discrimination. The API responds with a list of
+            results that match a selected time driscrimination for the query
+            value, select the time discrimination. You can check more than one
+            time discrimination. Example: G0. 
+
+
+            G0 
+
+
+            HIGH VOLTAGE GENERAL
+
+
+            E3 
+
+
+            THREE PERIOD RATE
+
+
+            E2 
+
+
+            TWO PERIOD RATE
+
+
+            E1 
+
+
+            RATE FOR A PERIOD
+          schema:
+            deprecated: false
+            type: string
+        - name: sort
+          in: query
+          required: false
+          description: >-
+            With this param you can order your results. For reverse order you
+            must add a '-' simbol before the field. Example: _sort=dataDate. You
+            can combine more than one sort using ','. You can order by:
+            dataDate, community, province, municipality, postalCode, fare,
+            measurePointType, tension, economicSector, timeDiscrimination,
+            distributor, sumEnergy and sumContracts. You only can sort by
+            previously used filters.
+          schema:
+            deprecated: false
+            type: string
+      responses: {}
+  /api-public/api-search-auto:
+    parameters: []
+    get:
+      summary: Search Auto
+      parameters:
+        - name: startDate
+          in: query
+          required: true
+          description: >-
+            Start date beetween search data. Format: YYYY/MM/dd. Example =
+            2020/02/28.
+          schema:
+            deprecated: false
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          required: true
+          description: >-
+            End date beetween search data. Format: YYYY/MM/dd. Example =
+            2020/02/28.
+          schema:
+            deprecated: false
+            type: string
+            format: date-time
+        - name: page
+          in: query
+          required: true
+          description: The number of page that you want to see. The first page is 0.
+          schema:
+            deprecated: false
+            type: integer
+            minimum: 0
+        - name: pageSize
+          in: query
+          required: true
+          description: >-
+            With this param you can set the number of results for page. The max
+            value is 2000.
+          schema:
+            deprecated: false
+            type: integer
+            minimum: 0
+            maximum: 2000
+        - name: community
+          in: query
+          required: true
+          description: >-
+            You can call by community name. This parameter is mandatory and the
+            maximun that you can select is two. The API responds with a list of
+            results that match a selected word. For the query value, select the
+            Community name. You can check more than one community. Example: 01.
+
+
+            01 
+
+
+            Andalucía
+
+
+            02 
+
+
+            Aragón
+
+
+            03 
+
+
+            Principado de Asturias
+
+
+            04 
+
+
+            Islas Baleares
+
+
+            05 
+
+
+            Canarias
+
+
+            06 
+
+
+            Cantabria
+
+
+            07 
+
+
+            Castilla y León
+
+
+            08 
+
+
+            Castilla La Mancha
+
+
+            09 
+
+
+            Cataluña
+
+
+            10 
+
+
+            Comunidad Valenciana
+
+
+            11 
+
+
+            Extremadura
+
+
+            12 
+
+
+            Galicia
+
+
+            13 
+
+
+            Comunidad de Madrid
+
+
+            14 
+
+
+            Región de Murcia
+
+
+            15 
+
+
+            Comunidad Foral de Navarra
+
+
+            16 
+
+
+            País Vasco
+
+
+            17 
+
+
+            La Rioja
+
+
+            18 
+
+
+            Ceuta
+
+
+            19 
+
+
+            Melilla
+          schema:
+            deprecated: false
+            type: string
+        - name: distributor
+          in: query
+          required: false
+          description: >-
+            You can call by distributor. You can see all distributors here. It
+            will use the distributor code XXXX digit. Example: of the
+            distributor ADURIZ DISTRIBUCIÓN, S.L. = 0172. You can combine more
+            than one distributor using ', '. Example = 0172,0426.
+          schema:
+            deprecated: false
+            type: string
+        - name: selfConsumption
+          in: query
+          required: false
+          description: >-
+            You can call by hired self-consumption. The API responds with a list
+            of results that match a selected fare for the query value, select
+            the fare name. You can check more than one fare. Example: 31.
+
+
+            31 
+
+
+            No Surplus Individual
+
+
+            32 
+
+
+            No Collective Surpluses
+
+
+            33 
+
+
+            Without Collective Surpluses with compensation agreement
+
+
+            41 
+
+
+            With surpluses and Individual compensation
+
+
+            42 
+
+
+            With surpluses and Collective compensation 
+
+
+            43 
+
+
+            With surpluses and collective compensation through the network -
+            Consumption 
+
+
+            51 
+
+
+            With surpluses without Individual compensation in Red Interior
+
+
+            52 
+
+
+            With surpluses without compensation Collective in Red Interior
+
+
+            53 
+
+
+            With surpluses without compensation Individual with SSAA contract in
+            Red Interior
+
+
+            54 
+
+
+            With surpluses without individual compensation with cto SSAA in the
+            Interior Network – SSAA
+
+
+            55 
+
+
+            With surpluses without compensation Collective with SSAA contract in
+            Red Interior
+
+
+            56 
+
+
+            With surpluses without collective compensation with SSAA act in the
+            Interior Network – SSAA
+
+
+            57 
+
+
+            With surpluses without compensation Collective without SSAA cto
+            (negligible) in internal network – Consumption
+
+
+            58 
+
+
+            With surpluses without compensation Collective without SSAA act
+            through network - Consumption
+
+
+            61 
+
+
+            With surpluses without Individual compensation with SSAA contract
+            through the network
+
+
+            62 
+
+
+            With surpluses without individual compensation with cto SSAA through
+            network – SSAA
+
+
+            63 
+
+
+            With surpluses without compensation Collective with SSAA contract
+            through the network
+
+
+            64 
+
+
+            With surpluses without collective compensation with SSAA cto through
+            network – SSAA
+
+
+            71 
+
+
+            With surpluses without compensation Individual with SSAA contract
+            through network and internal network
+
+
+            72 
+
+
+            With surpluses without individual compensation with cto SSAA through
+            network and internal network – SSAA
+
+
+            73 
+
+
+            With surpluses without compensation Collective with SSAA contract
+            through network and internal network
+
+
+            74 
+
+
+            With surpluses without collective compensation with SSAA cto through
+            network and internal network - SSAA
+
+
+            77 
+
+
+            With surpluses without collective compensation with SSAA contract
+            through network and internal network
+          schema:
+            deprecated: false
+            type: string
+        - name: province
+          in: query
+          required: false
+          description: >-
+            You can call by provinces You can see all provinces here. You will
+            use Province Numeric Code = XX digit Example: From Alicante province
+            = 03, from Almería = 04. You can combine more than one province
+            using , Example = 04,18.
+          schema:
+            deprecated: false
+            type: string
+        - name: sort
+          in: query
+          required: false
+          description: >-
+            With this param you can order your results. For reverse order you
+            must add a '-' simbol before the field. Example: _sort=dataDate. You
+            can combine more than one sort using ','. You can order by:
+            dataDate, community, province, municipality, postalCode, fare,
+            measurePointType, tension, economicSector, timeDiscrimination,
+            distributor, sumEnergy and sumContracts. You only can sort by
+            previously used filters.
+          schema:
+            deprecated: false
+            type: string
+      responses: {}
+  /api-private/api/get-consumption-data-v2:
+    parameters: []
+    get:
+      summary: Get Consumption in kWh
+      parameters:
+        - name: cups
+          in: query
+          required: true
+          description: The CUPS which that we will want know the consumption data
+          example: "{{CUPS}}"
+          schema:
+            deprecated: false
+            type: string
+        - name: distributorCode
+          in: query
+          required: true
+          description: Code of distributor, which obtains with the get-supplies request
+          example: "{{DISTRIBUTORCODE}}"
+          schema:
+            deprecated: false
+            type: string
+        - name: startDate
+          in: query
+          required: true
+          description: "Start date beetween search data. Format: YYYY/MM. Example = 2020/02."
+          schema:
+            deprecated: false
+            type: string
+            pattern: ^\d{4}/(0[1-9]|1[0-2])$
+        - name: endDate
+          in: query
+          required: true
+          description: "End date beetween search data. Format: YYYY/MM. Example = 2020/02."
+          schema:
+            deprecated: false
+            type: string
+            pattern: ^\d{4}/(0[1-9]|1[0-2])$
+        - name: measurementType
+          in: query
+          required: true
+          description: >-
+            Set it to 0 (Zero) if you want to get the consumption per hour and
+            to 1 (One) if you want to get the consumption per quarter of an
+            hour. 
+
+            The quarter hour is only available for PointType 1 and 2, and in the
+            case of the E-distribución distributor also for PointType 3
+          schema:
+            deprecated: false
+            type: string
+            enum:
+              - "0"
+              - "1"
+        - name: pointType
+          in: query
+          required: true
+          description: Point type code, which obtains with the get-supplies request
+          example: "{{POINTTYPE}}"
+          schema:
+            deprecated: false
+            type: string
+        - name: authorizedNif
+          in: query
+          required: false
+          description: >-
+            Only in case you want to obtain consumption data from an authorized
+            NIF.
+          example: "{{AUTHORIZEDNIFS}}"
+          schema:
+            deprecated: false
+            type: string
+      responses:
+        "200":
+          headers:
+            Date:
+              schema:
+                type: string
+              example: Sat, 17 May 2025 11:27:52 GMT
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+              example: chunked
+            Connection:
+              schema:
+                type: string
+              example: keep-alive
+            Request-Context:
+              schema:
+                type: string
+              example: appId=d4408264-3bc1-43de-8159-bd5e6b265356
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+              example: "*"
+            Strict-Transport-Security:
+              schema:
+                type: string
+              example: max-age=31536000 ; includeSubDomains
+            vary:
+              schema:
+                type: string
+              example: accept-encoding
+            Content-Encoding:
+              schema:
+                type: string
+              example: gzip
+            X-Content-Type-Options:
+              schema:
+                type: string
+              example: nosniff
+            X-XSS-Protection:
+              schema:
+                type: integer
+              example: 1; mode=block
+            Cache-Control:
+              schema:
+                type: string
+              example: no-cache, no-store, max-age=0, must-revalidate
+            Pragma:
+              schema:
+                type: string
+              example: no-cache
+            Expires:
+              schema:
+                type: integer
+              example: "0"
+            X-Frame-Options:
+              schema:
+                type: string
+              example: DENY
+          description: 200 - OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timeCurve:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        cups:
+                          type: string
+                        date:
+                          type: string
+                        time:
+                          type: string
+                          format: style
+                        consumptionKWh:
+                          type: number
+                        obtainMethod:
+                          type: string
+                        surplusEnergyKWh:
+                          nullable: true
+                        generationEnergyKWh:
+                          nullable: true
+                        selfConsumptionEnergyKWh:
+                          nullable: true
+                  distributorError:
+                    type: array
+                    items: {}
+        "400":
+          headers:
+            Date:
+              schema:
+                type: string
+              example: Sat, 17 May 2025 11:40:49 GMT
+            Content-Type:
+              schema:
+                type: string
+              example: text/plain;charset=UTF-8
+            Transfer-Encoding:
+              schema:
+                type: string
+              example: chunked
+            Connection:
+              schema:
+                type: string
+              example: keep-alive
+            Request-Context:
+              schema:
+                type: string
+              example: appId=d4408264-3bc1-43de-8159-bd5e6b265356
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+              example: "*"
+            Strict-Transport-Security:
+              schema:
+                type: string
+              example: max-age=31536000 ; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+              example: nosniff
+            X-XSS-Protection:
+              schema:
+                type: integer
+              example: 1; mode=block
+            Cache-Control:
+              schema:
+                type: string
+              example: no-cache, no-store, max-age=0, must-revalidate
+            Pragma:
+              schema:
+                type: string
+              example: no-cache
+            Expires:
+              schema:
+                type: integer
+              example: "0"
+            X-Frame-Options:
+              schema:
+                type: string
+              example: DENY
+          description: 400 - Bad Request (Dates)
+  /api-private/api/get-contract-detail-v2:
+    parameters: []
+    get:
+      summary: Get Contract detail
+      parameters:
+        - name: cups
+          in: query
+          required: true
+          description: >-
+            The CUPS which that we will want know the contract details, you can
+            only search one cups by request
+          example: "{{CUPS}}"
+          schema:
+            deprecated: false
+            type: string
+        - name: distributorCode
+          in: query
+          required: true
+          description: Code of distributor, which obtains with the get-supplies request
+          example: "{{DISTRIBUTORCODE}}"
+          schema:
+            deprecated: false
+            type: string
+        - name: authorizedNif
+          in: query
+          required: false
+          description: Just on case that you want get the contract detail of authorized NIF
+          example: "{{AUTHORIZEDNIFS}}"
+          schema:
+            deprecated: false
+            type: string
+      responses:
+        "200":
+          headers:
+            Date:
+              schema:
+                type: string
+              example: Sat, 17 May 2025 11:14:15 GMT
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+              example: chunked
+            Connection:
+              schema:
+                type: string
+              example: keep-alive
+            Request-Context:
+              schema:
+                type: string
+              example: appId=d4408264-3bc1-43de-8159-bd5e6b265356
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+              example: "*"
+            Strict-Transport-Security:
+              schema:
+                type: string
+              example: max-age=31536000 ; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+              example: nosniff
+            X-XSS-Protection:
+              schema:
+                type: integer
+              example: 1; mode=block
+            Cache-Control:
+              schema:
+                type: string
+              example: no-cache, no-store, max-age=0, must-revalidate
+            Pragma:
+              schema:
+                type: string
+              example: no-cache
+            Expires:
+              schema:
+                type: integer
+              example: "0"
+            X-Frame-Options:
+              schema:
+                type: string
+              example: DENY
+          description: 200 - OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contract:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        cups:
+                          type: string
+                        distributor:
+                          type: string
+                        marketer:
+                          type: string
+                        tension:
+                          type: string
+                        accessFare:
+                          type: string
+                        province:
+                          type: string
+                        municipality:
+                          type: string
+                        postalCode:
+                          type: string
+                          format: utc-millisec
+                        contractedPowerkW:
+                          type: array
+                          items:
+                            type: number
+                        timeDiscrimination:
+                          type: string
+                        modePowerControl:
+                          type: string
+                        startDate:
+                          type: string
+                        endDate:
+                          type: string
+                        codeFare:
+                          type: string
+                        selfConsumptionTypeCode:
+                          type: string
+                        selfConsumptionTypeDesc:
+                          nullable: true
+                        section:
+                          type: string
+                        subsection:
+                          nullable: true
+                        partitionCoefficient:
+                          nullable: true
+                        cau:
+                          type: string
+                        installedCapacity:
+                          nullable: true
+                        dateOwner:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              startDate:
+                                type: string
+                              endDate:
+                                type: string
+                        lastMarketerDate:
+                          type: string
+                        maxPowerInstall:
+                          type: string
+                          format: utc-millisec
+                  distributorError:
+                    type: array
+                    items: {}
+  /api-private/api/get-supplies-v2:
+    parameters: []
+    get:
+      summary: Get Supplies
+      parameters:
+        - name: authorizedNif
+          in: query
+          required: false
+          description: >-
+            If we want search supplies of people which we have authorized, we
+            can search it with the NIF of the authorized people
+          example: "{{AUTHORIZEDNIFS}}"
+          schema:
+            deprecated: false
+            type: string
+        - name: distributorCode
+          in: query
+          required: false
+          description: >-
+            Distributor code, obtained with the request for distributors with
+            supplies: /get-distributors-with-supplies.
+
+
+            To consult the supplies of a single distributor.
+          schema:
+            deprecated: false
+            type: string
+      responses:
+        "200":
+          headers:
+            Date:
+              schema:
+                type: string
+              example: Sat, 17 May 2025 11:09:24 GMT
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+              example: chunked
+            Connection:
+              schema:
+                type: string
+              example: keep-alive
+            Request-Context:
+              schema:
+                type: string
+              example: appId=d4408264-3bc1-43de-8159-bd5e6b265356
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+              example: "*"
+            Strict-Transport-Security:
+              schema:
+                type: string
+              example: max-age=31536000 ; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+              example: nosniff
+            X-XSS-Protection:
+              schema:
+                type: integer
+              example: 1; mode=block
+            Cache-Control:
+              schema:
+                type: string
+              example: no-cache, no-store, max-age=0, must-revalidate
+            Pragma:
+              schema:
+                type: string
+              example: no-cache
+            Expires:
+              schema:
+                type: integer
+              example: "0"
+            X-Frame-Options:
+              schema:
+                type: string
+              example: DENY
+          description: 200 - OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  supplies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        address:
+                          type: string
+                        cups:
+                          type: string
+                        postalCode:
+                          type: string
+                          format: utc-millisec
+                        province:
+                          type: string
+                        municipality:
+                          type: string
+                        distributor:
+                          type: string
+                        validDateFrom:
+                          type: string
+                        validDateTo:
+                          type: string
+                        pointType:
+                          type: integer
+                        distributorCode:
+                          type: string
+                          format: utc-millisec
+                  distributorError:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        distributorCode:
+                          type: string
+                          format: utc-millisec
+                        distributorName:
+                          type: string
+                        errorCode:
+                          type: string
+                          format: utc-millisec
+                        errorDescription:
+                          type: string
+  /api-private/api/get-max-power-v2:
+    parameters: []
+    get:
+      summary: Get Max Power
+      parameters:
+        - name: cups
+          in: query
+          required: true
+          description: The CUPS which that we will want know the contract details
+          example: "{{CUPS}}"
+          schema:
+            deprecated: false
+            type: string
+        - name: distributorCode
+          in: query
+          required: true
+          description: Code of distributor, which obtains with the get-supplies request
+          example: "{{DISTRIBUTORCODE}}"
+          schema:
+            deprecated: false
+            type: string
+        - name: startDate
+          in: query
+          required: true
+          description: "Start date beetween search data. Format: YYYY/MM. Example = 2020/02."
+          schema:
+            deprecated: false
+            type: string
+            pattern: ^\d{4}/(0[1-9]|1[0-2])$
+        - name: endDate
+          in: query
+          required: true
+          description: "End date beetween search data. Format: YYYY/MM. Example = 2020/02."
+          schema:
+            deprecated: false
+            type: string
+            pattern: ^\d{4}/(0[1-9]|1[0-2])$
+        - name: authorizedNif
+          in: query
+          required: false
+          description: Just on case that you want get the contract detail of authorized NIF
+          schema:
+            deprecated: false
+            type: string
+      responses:
+        "200":
+          headers:
+            Date:
+              schema:
+                type: string
+              example: Sat, 17 May 2025 11:35:29 GMT
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+              example: chunked
+            Connection:
+              schema:
+                type: string
+              example: keep-alive
+            Request-Context:
+              schema:
+                type: string
+              example: appId=d4408264-3bc1-43de-8159-bd5e6b265356
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+              example: "*"
+            Strict-Transport-Security:
+              schema:
+                type: string
+              example: max-age=31536000 ; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+              example: nosniff
+            X-XSS-Protection:
+              schema:
+                type: integer
+              example: 1; mode=block
+            Cache-Control:
+              schema:
+                type: string
+              example: no-cache, no-store, max-age=0, must-revalidate
+            Pragma:
+              schema:
+                type: string
+              example: no-cache
+            Expires:
+              schema:
+                type: integer
+              example: "0"
+            X-Frame-Options:
+              schema:
+                type: string
+              example: DENY
+          description: 200 - OK (No result)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  maxPower:
+                    type: array
+                    items: {}
+                  distributorError:
+                    type: array
+                    items: {}
+        "400":
+          headers:
+            Date:
+              schema:
+                type: string
+              example: Sat, 17 May 2025 11:38:18 GMT
+            Content-Type:
+              schema:
+                type: string
+              example: text/plain;charset=UTF-8
+            Transfer-Encoding:
+              schema:
+                type: string
+              example: chunked
+            Connection:
+              schema:
+                type: string
+              example: keep-alive
+            Request-Context:
+              schema:
+                type: string
+              example: appId=d4408264-3bc1-43de-8159-bd5e6b265356
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+              example: "*"
+            Strict-Transport-Security:
+              schema:
+                type: string
+              example: max-age=31536000 ; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+              example: nosniff
+            X-XSS-Protection:
+              schema:
+                type: integer
+              example: 1; mode=block
+            Cache-Control:
+              schema:
+                type: string
+              example: no-cache, no-store, max-age=0, must-revalidate
+            Pragma:
+              schema:
+                type: string
+              example: no-cache
+            Expires:
+              schema:
+                type: integer
+              example: "0"
+            X-Frame-Options:
+              schema:
+                type: string
+              example: DENY
+          description: 400 - Bad Request
+        "429":
+          headers:
+            Date:
+              schema:
+                type: string
+              example: Sat, 17 May 2025 11:38:41 GMT
+            Content-Type:
+              schema:
+                type: string
+              example: text/plain;charset=UTF-8
+            Transfer-Encoding:
+              schema:
+                type: string
+              example: chunked
+            Connection:
+              schema:
+                type: string
+              example: keep-alive
+            Request-Context:
+              schema:
+                type: string
+              example: appId=d4408264-3bc1-43de-8159-bd5e6b265356
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+              example: "*"
+            Strict-Transport-Security:
+              schema:
+                type: string
+              example: max-age=31536000 ; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+              example: nosniff
+            X-XSS-Protection:
+              schema:
+                type: integer
+              example: 1; mode=block
+            Cache-Control:
+              schema:
+                type: string
+              example: no-cache, no-store, max-age=0, must-revalidate
+            Pragma:
+              schema:
+                type: string
+              example: no-cache
+            Expires:
+              schema:
+                type: integer
+              example: "0"
+            X-Frame-Options:
+              schema:
+                type: string
+              example: DENY
+          description: 429 - Too Many Requests
+  /api-private/api/get-reactive-data-v2:
+    parameters: []
+    get:
+      summary: Get Reactive Data
+      parameters:
+        - name: cups
+          in: query
+          required: true
+          description: The CUPS which that we will want know the contract details
+          example: "{{CUPS}}"
+          schema:
+            deprecated: false
+            type: string
+        - name: distributorCode
+          in: query
+          required: true
+          description: Code of distributor, which obtains with the get-supplies request
+          example: "{{DISTRIBUTORCODE}}"
+          schema:
+            deprecated: false
+            type: string
+        - name: startDate
+          in: query
+          required: true
+          description: "Start date beetween search data. Format: YYYY/MM. Example = 2020/02."
+          schema:
+            deprecated: false
+            type: string
+            pattern: ^\d{4}/(0[1-9]|1[0-2])$
+        - name: endDate
+          in: query
+          required: true
+          description: "End date beetween search data. Format: YYYY/MM. Example = 2020/02."
+          schema:
+            deprecated: false
+            type: string
+            pattern: ^\d{4}/(0[1-9]|1[0-2])$
+        - name: authorizedNif
+          in: query
+          required: false
+          description: Just on case that you want get the contract detail of authorized NIF
+          schema:
+            type: string
+      responses:
+        "429":
+          headers:
+            Date:
+              schema:
+                type: string
+              example: Sat, 17 May 2025 11:44:27 GMT
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+              example: chunked
+            Connection:
+              schema:
+                type: string
+              example: keep-alive
+            Request-Context:
+              schema:
+                type: string
+              example: appId=d4408264-3bc1-43de-8159-bd5e6b265356
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+              example: "*"
+            Strict-Transport-Security:
+              schema:
+                type: string
+              example: max-age=31536000 ; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+              example: nosniff
+            X-XSS-Protection:
+              schema:
+                type: integer
+              example: 1; mode=block
+            Cache-Control:
+              schema:
+                type: string
+              example: no-cache, no-store, max-age=0, must-revalidate
+            Pragma:
+              schema:
+                type: string
+              example: no-cache
+            Expires:
+              schema:
+                type: integer
+              example: "0"
+            X-Frame-Options:
+              schema:
+                type: string
+              example: DENY
+          description: 429 - Too Many Requests
+  /api-private/api/get-distributors-with-supplies-v2:
+    parameters: []
+    get:
+      summary: Get Distributors with Supplies
+      parameters:
+        - name: authorizedNif
+          in: query
+          required: false
+          description: Just on case that you want get the contract detail of authorized NIF
+          schema:
+            type: string
+      responses:
+        "200":
+          headers:
+            Date:
+              schema:
+                type: string
+              example: Sat, 17 May 2025 11:43:16 GMT
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+              example: chunked
+            Connection:
+              schema:
+                type: string
+              example: keep-alive
+            Request-Context:
+              schema:
+                type: string
+              example: appId=d4408264-3bc1-43de-8159-bd5e6b265356
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+              example: "*"
+            Strict-Transport-Security:
+              schema:
+                type: string
+              example: max-age=31536000 ; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+              example: nosniff
+            X-XSS-Protection:
+              schema:
+                type: integer
+              example: 1; mode=block
+            Cache-Control:
+              schema:
+                type: string
+              example: no-cache, no-store, max-age=0, must-revalidate
+            Pragma:
+              schema:
+                type: string
+              example: no-cache
+            Expires:
+              schema:
+                type: integer
+              example: "0"
+            X-Frame-Options:
+              schema:
+                type: string
+              example: DENY
+          description: 200 - OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  distributorError:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        distributorCode:
+                          type: string
+                          format: utc-millisec
+                        distributorName:
+                          type: string
+                        errorCode:
+                          type: string
+                          format: utc-millisec
+                        errorDescription:
+                          type: string
+                  distExistenceUser:
+                    type: object
+                    properties:
+                      distributorCodes:
+                        type: array
+                        items:
+                          type: string
+                          format: utc-millisec
