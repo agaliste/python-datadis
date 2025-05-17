@@ -27,7 +27,7 @@ class SearchMixin:
     ) -> Dict[str, Any]:
         """
         Search for consumption data by various parameters.
-        
+
         Args:
             start_date: Start date in format YYYY/MM/dd.
             end_date: End date in format YYYY/MM/dd.
@@ -43,7 +43,7 @@ class SearchMixin:
             tension: Optional tension code (E0-E6).
             time_discrimination: Optional time discrimination code.
             sort: Optional sort criteria.
-            
+
         Returns:
             Dict[str, Any]: The search results.
         """
@@ -55,7 +55,7 @@ class SearchMixin:
             "measurementType": measurement_type,
             "community": community
         }
-        
+
         optional_params = {
             "distributor": distributor,
             "fare": fare,
@@ -66,13 +66,13 @@ class SearchMixin:
             "timeDiscrimination": time_discrimination,
             "sort": sort
         }
-        
+
         for key, value in optional_params.items():
             if value is not None:
                 params[key] = value
-                
+
         return self._get("/api-public/api-search", params)
-    
+
     def api_sum_search(
         self,
         start_date: str,
@@ -92,7 +92,7 @@ class SearchMixin:
     ) -> Dict[str, Any]:
         """
         Search for summarized consumption data by various parameters.
-        
+
         Args:
             start_date: Start date in format YYYY/MM/dd.
             end_date: End date in format YYYY/MM/dd.
@@ -108,7 +108,7 @@ class SearchMixin:
             tension: Optional tension code (E0-E6).
             time_discrimination: Optional time discrimination code.
             sort: Optional sort criteria.
-            
+
         Returns:
             Dict[str, Any]: The summarized search results.
         """
@@ -120,7 +120,7 @@ class SearchMixin:
             "measurementType": measurement_type,
             "community": community
         }
-        
+
         optional_params = {
             "distributor": distributor,
             "fare": fare,
@@ -131,13 +131,13 @@ class SearchMixin:
             "timeDiscrimination": time_discrimination,
             "sort": sort
         }
-        
+
         for key, value in optional_params.items():
             if value is not None:
                 params[key] = value
-                
+
         return self._get("/api-public/api-sum-search", params)
-    
+
     def api_search_auto(
         self,
         start_date: str,
@@ -152,7 +152,7 @@ class SearchMixin:
     ) -> Dict[str, Any]:
         """
         Search for auto-consumption data by various parameters.
-        
+
         Args:
             start_date: Start date in format YYYY/MM/dd.
             end_date: End date in format YYYY/MM/dd.
@@ -163,7 +163,7 @@ class SearchMixin:
             self_consumption: Optional self-consumption code.
             province: Optional province code.
             sort: Optional sort criteria.
-            
+
         Returns:
             Dict[str, Any]: The auto-consumption search results.
         """
@@ -174,16 +174,16 @@ class SearchMixin:
             "pageSize": page_size,
             "community": community
         }
-        
+
         optional_params = {
             "distributor": distributor,
             "selfConsumption": self_consumption,
             "province": province,
             "sort": sort
         }
-        
+
         for key, value in optional_params.items():
             if value is not None:
                 params[key] = value
-                
-        return self._get("/api-public/api-search-auto", params) 
+
+        return self._get("/api-public/api-search-auto", params)
